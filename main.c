@@ -32,21 +32,21 @@ size_t pkcs7_unpad(uint8_t *data, size_t data_len) {
 void aes_encrypt_cbc(const char *input_filename, const char *output_filename, uint8_t *key, size_t key_size) {
     
     FILE *fin, *fout;
-    // Vetor de Inicialização (IV) - Deve ser único e secreto/aleatório para cada criptografia
+    
     uint8_t iv[AES_BLOCK_SIZE] = {
         0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 
         0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
     }; 
-    uint8_t block[AES_BLOCK_SIZE]; // Bloco de entrada (plaintext)
+    uint8_t block[AES_BLOCK_SIZE]; 
     uint8_t prev_cipher_block[AES_BLOCK_SIZE]; // C(i-1) ou IV
     uint8_t ciphered_block[AES_BLOCK_SIZE]; // C(i)
     
-    // 1. Inicializa e Expande a Chave
+    
     uint8_t *w = aes_init(key_size);
     if (!w) { perror("Erro de alocação de chave"); return; }
     aes_key_expansion(key, w);
 
-    // 2. Abre Arquivos
+    
     fin = fopen(input_filename, "rb");
     fout = fopen(output_filename, "wb");
     if (!fin || !fout) {
