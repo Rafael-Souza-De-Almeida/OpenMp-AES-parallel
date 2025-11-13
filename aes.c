@@ -7,6 +7,7 @@
  */
 #include "aes.h"
 #include "gmult.h"
+#include <omp.h>
 
 /*
  * Addition in GF(2^8)
@@ -97,6 +98,8 @@ int Nk;
  * fixed). For this standard, Nr = 10, 12, or 14.
  */
 int Nr;
+
+
 
 /*
  * S-box transformation table
@@ -192,7 +195,8 @@ void mix_columns(uint8_t *state) {
 	uint8_t a[] = {0x02, 0x01, 0x01, 0x03}; // a(x) = {02} + {01}x + {01}x2 + {03}x3
 	uint8_t i, j, col[4], res[4];
 
-	for (j = 0; j < Nb; j++) {
+	#pragma omp parallel for private(i,col, res) 
+		for (j = 0; j < Nb; j++) {
 		for (i = 0; i < 4; i++) {
 			col[i] = state[Nb*i+j];
 		}
@@ -202,7 +206,10 @@ void mix_columns(uint8_t *state) {
 		for (i = 0; i < 4; i++) {
 			state[Nb*i+j] = res[i];
 		}
+
 	}
+	
+	
 }
 
 /*
