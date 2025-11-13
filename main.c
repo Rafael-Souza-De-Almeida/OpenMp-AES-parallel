@@ -138,6 +138,6 @@ int main() {
     aes_encrypt_ecb(INPUT_FILE, ENC_FILE, key, sizeof(key));
     aes_decrypt_ecb(ENC_FILE, DEC_FILE, key, sizeof(key));
 
-    printf("Concluído.\n");
+    printf("Concluido.\n");
     return 0;
 }
