@@ -12,13 +12,20 @@ endif
 
 .PHONY: all clean run debug
 
-all: $(EXE) run
+all: compile run_tests
 
 $(EXE): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
+
+compile:
+	gcc -fopenmp gmult.c aes.c main.c -o aes
+
+run_tests:
+	chmod +x run-tests.sh
+	./run-tests.sh
 
 run:
 	@echo Executando $(EXE)...

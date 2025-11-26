@@ -5,7 +5,7 @@
 #include <omp.h>
 
 #define AES_BLOCK_SIZE 16
-#define THREAD_NUM 8 
+int THREAD_NUM = 1;
 
 size_t pkcs7_pad_buffer(uint8_t *buffer, size_t data_len, size_t total_buffer_size) {
     uint8_t padding_len = AES_BLOCK_SIZE - (data_len % AES_BLOCK_SIZE);
@@ -120,7 +120,9 @@ void aes_decrypt_ecb(const char *input_filename, const char *output_filename, ui
     fclose(fout);
 }
 
-int main() {
+int main(int argc, char *argv[]) {
+    THREAD_NUM = atoi(argv[1]);
+    printf("threads: %d\n", THREAD_NUM);
     omp_set_num_threads(THREAD_NUM);
 
     uint8_t key[] = {
@@ -130,9 +132,9 @@ int main() {
         0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f
     };
 
-    const char *INPUT_FILE = "input.txt"; 
-    const char *ENC_FILE = "output.aes";
-    const char *DEC_FILE = "output_decrypted.txt";
+    const char *INPUT_FILE = argv[2]; 
+    const char *ENC_FILE = argv[3];
+    const char *DEC_FILE = argv[4];
 
     printf("--- AES ECB (Modo Paralelo) ---\n");
     aes_encrypt_ecb(INPUT_FILE, ENC_FILE, key, sizeof(key));

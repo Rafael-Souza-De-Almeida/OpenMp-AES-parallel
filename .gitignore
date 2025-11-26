@@ -1,4 +1,6 @@
 *.o
 *.aes
+aes
 inputs/*
 outputs/*
+output_decrypted.txt
