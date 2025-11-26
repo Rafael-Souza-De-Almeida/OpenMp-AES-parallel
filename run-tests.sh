@@ -10,7 +10,7 @@ TAMANHOS=(20 50 100 500 1000)
 
 THREADS=(1 2 3 4 5 6 7 8 9 10 11 12)
 
-echo "entrada_MB,threads,tempo_s" > "$LOG"
+echo "entrada_MB,threads,tempo_t,tempo_c,tempo_d" > "$LOG"
 
 for size in "${TAMANHOS[@]}"; do
     FILE="$INPUT_DIR/input_${size}Mb.txt"
@@ -35,9 +35,15 @@ for size in "${TAMANHOS[@]}"; do
         echo "Rodando: ${size}MB com ${th} threads..."
 
         echo $EXEC "$th" "$INPUT" "$OUTPUT_ENC" "$OUTPUT_DEC"
-        TEMPO=$( ( time -p $EXEC "$th" "$INPUT" "$OUTPUT_ENC" "$OUTPUT_DEC") 2>&1 | grep real | awk '{print $2}' )
-        
+        #TEMPO=$( ( time -p $EXEC "$th" "$INPUT" "$OUTPUT_ENC" "$OUTPUT_DEC") 2>&1 | grep real | awk '{print $2}' )
+        OUTPUT=$(
+            { time -p $EXEC "$th" "$INPUT" "$OUTPUT_ENC" "$OUTPUT_DEC"; } \
+            2>&1
+        )
+        TEMPO_TOTAL=$(echo "$OUTPUT" | grep "^real" | awk '{print $2}')
+        TEMPO_C=$(echo "$OUTPUT" | grep "Tempo Criptografia ECB" | awk '{print $4}')
+        TEMPO_D=$(echo "$OUTPUT" | grep "Tempo Descriptografia ECB" | awk '{print $4}')
 
-        echo "${size},${th},${TEMPO}" >> "$LOG"
+        echo "${size},${th},${TEMPO_TOTAL},${TEMPO_C},${TEMPO_D}" >> "$LOG"
     done
 done

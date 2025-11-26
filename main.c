@@ -40,6 +40,7 @@ void aes_encrypt_ecb(const char *input_filename, const char *output_filename, ui
 
     uint8_t *input_data = calloc(padded_size, 1); 
     uint8_t *output_data = malloc(padded_size);
+    memset(output_data,0,padded_size);
 
     fread(input_data, 1, file_size, fin);
     
