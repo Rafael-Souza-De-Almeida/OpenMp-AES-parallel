@@ -125,3 +125,14 @@ Consulte o arquivo `LICENSE` para mais detalhes.
 
 Considere deixar uma estrela ⭐ no GitHub!
 
+## 👨‍💻 Autores
+
+- **Davi Cardoso**  
+  🔗 GitHub: [github.com/Davi-Cardos](https://github.com/Davi-Cardos)
+
+- **Rafael Souza**  
+  🔗 GitHub: [github.com/Rafael-Souza-De-Almeida](https://github.com/Rafael-Souza-De-Almeida)
+
+- **Maxwell William**  
+  🔗 GitHub: [github.com/maxwellseveriano](https://github.com/maxwellseveriano)
+
