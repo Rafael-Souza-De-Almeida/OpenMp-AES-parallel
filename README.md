@@ -57,12 +57,6 @@ O código é baseado no fork do projeto original de `dhuertas/AES` e foi adaptad
 > ⚠️ **Atenção:**  
 > Este repositório possui makefile, mas abaixo está descrita a compilação manualmente. 
 
-### 🔹 Compilação simples (sem OpenMP)
-
-```bash
-gcc gmult.c aes.c main.c -o aes
-```
-
 ### 🔹 Compilação com OpenMP
 
 ```bash
@@ -74,23 +68,6 @@ gcc -fopenmp gmult.c aes.c main.c -o aes_openmp
 ```bash
 ./aes
 ```
-
----
-
-## 📘 Exemplo de saída
-
-```
-Plaintext message:
-00 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff
-
-Ciphered message:
-8e a2 b7 ca 51 67 45 bf ea fc 49 90 4b 49 60 89
-
-Original message (after inv cipher):
-00 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff
-```
-
----
 
 ## ⚡ Sobre paralelização com OpenMP
 
